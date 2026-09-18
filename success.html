@@ -22,7 +22,7 @@
     <p class="eyebrow">Font Smooth Pro</p>
     <div class="success-status" id="successStatus">Purchase complete</div>
     <h1 class="success-title">Font Smooth Pro is ready.</h1>
-    <p class="success-lead" id="successLead">Copy your license key, then activate Pro inside Font Smooth.</p>
+    <p class="success-lead" id="successLead">Your license is ready here. Copy it now, then activate Pro inside Font Smooth.</p>
 
     <div class="license-box" id="licenseBox">
       <div class="license-label-row">
@@ -43,7 +43,7 @@
         <li>Open <strong>Advanced → Font Smooth Pro</strong>.</li>
         <li>Choose <strong>Activate Pro</strong>, paste the key, and activate.</li>
       </ol>
-      <p class="success-note">We also send the license key by email for safekeeping. If it is not in your inbox, check Spam.</p>
+      <p class="success-note">This page is your primary license delivery. Save the key before leaving. A backup copy is also sent by email. If it is not in your inbox, check Spam.</p>
     </div>
 
     <div class="success-help">
@@ -108,14 +108,14 @@
   if (!licenseKey) {
     statusEl.textContent = "Purchase complete";
     titleEl.textContent = "Your purchase is complete.";
-    leadEl.textContent = "We could not read the license key from this return link. Check the purchase email, including Spam, or contact Zema Tools support.";
+    leadEl.textContent = "We could not read the license key from this return link. Check the backup email, including Spam, or contact Zema Tools support.";
     boxEl.hidden = true;
     stepsEl.hidden = true;
     return;
   }
 
   keyEl.textContent = licenseKey;
-  if (email) emailEl.textContent = "Also sent to " + email;
+  if (email) emailEl.textContent = "Backup copy sent to " + email;
 
   async function copyKey() {
     try {
