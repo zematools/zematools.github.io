@@ -6,17 +6,14 @@
   <meta name="robots" content="noindex,nofollow">
   <meta name="referrer" content="no-referrer">
   <meta name="description" content="Font Smooth Pro purchase success">
-  <title>Font Smooth Pro is ready | Zema Tools</title>
+  <title>Font Smooth Pro is ready | Zema Tools</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body class="success-body">
 <header class="site-header">
   <div class="shell nav-shell">
-    <a class="brand success-brand" href="index.html">
-      <img src="zema-tools-logo.png" alt="" width="30" height="30">
-      <span>Zema Tools</span>
-    </a>
-    <nav class="nav"><a href="index.html#support">Support</a></nav>
+    <a class="brand brand-lockup" href="/"><img class="brand-mark" src="zema-tools-logo.png" alt="" width="28" height="28"><span>Zema Tools</span></a>
+    <nav class="nav"><a href="/#support">Support</a></nav>
   </div>
 </header>
 
@@ -50,7 +47,7 @@
     </div>
 
     <div class="success-help">
-      <a class="text-link" href="index.html">Back to Font Smooth <span>↗</span></a>
+      <a class="text-link" href="/">Back to Font Smooth <span>↗</span></a>
       <a class="text-link" href="https://mail.google.com/mail/?view=cm&fs=1&to=productionszema@gmail.com&su=Font%20Smooth%20Purchase%20Help" target="_blank" rel="noopener noreferrer">Need help? <span>↗</span></a>
     </div>
   </section>
@@ -87,7 +84,17 @@
   const copyBtn = document.getElementById("copyLicense");
   const feedbackEl = document.getElementById("copyFeedback");
 
-  const successful = !status || status === "succeeded" || status === "active";
+  const hasReturnData = params.has("status") || params.has("license_key") || params.has("payment_id") || params.has("email");
+  const successful = status === "succeeded" || status === "active" || (!!licenseKey && !status);
+
+  if (!hasReturnData && !licenseKey) {
+    statusEl.textContent = "No purchase details";
+    titleEl.textContent = "No purchase details found.";
+    leadEl.textContent = "This page shows your Font Smooth Pro license after a completed purchase. Return to Font Smooth or use the Buy Pro button to start checkout.";
+    boxEl.hidden = true;
+    stepsEl.hidden = true;
+    return;
+  }
 
   if (!successful) {
     statusEl.textContent = "Payment not completed";
@@ -101,7 +108,7 @@
   if (!licenseKey) {
     statusEl.textContent = "Purchase complete";
     titleEl.textContent = "Your purchase is complete.";
-    leadEl.textContent = "The license key was not included in this return link. Check the purchase email, including Spam, or contact Zema Tools support.";
+    leadEl.textContent = "We could not read the license key from this return link. Check the purchase email, including Spam, or contact Zema Tools support.";
     boxEl.hidden = true;
     stepsEl.hidden = true;
     return;
