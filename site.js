@@ -1,46 +1,56 @@
 (() => {
-  const target = document.querySelector('[data-live-type]');
+  const target = document.querySelector('[data-live-type-heading]');
   if (!target) return;
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (reducedMotion.matches) return;
 
   const fontStates = [
-    { family: '"Instrument Serif", Georgia, serif', style: 'italic', weight: '400' },
-    { family: '"Lora", Georgia, serif', style: 'italic', weight: '400' },
-    { family: '"DM Sans", Inter, Arial, sans-serif', style: 'italic', weight: '500' },
-    { family: '"Manrope", Inter, Arial, sans-serif', style: 'normal', weight: '500' }
+    {
+      className: 'live-type-instrument',
+      family: '"Instrument Serif", Georgia, serif',
+      load: '400 96px "Instrument Serif"'
+    },
+    {
+      className: 'live-type-inter',
+      family: '"Inter", Arial, sans-serif',
+      load: '400 96px "Inter"'
+    },
+    {
+      className: 'live-type-mono',
+      family: '"JetBrains Mono", Consolas, monospace',
+      load: '400 80px "JetBrains Mono"'
+    }
   ];
 
   let index = 0;
   let timer = null;
 
   const applyState = (state) => {
+    target.classList.remove(...fontStates.map((item) => item.className));
+    target.classList.add(state.className);
     target.style.fontFamily = state.family;
-    target.style.fontStyle = state.style;
-    target.style.fontWeight = state.weight;
   };
 
   const switchFont = () => {
-    if (document.hidden) return;
-
-    target.classList.add('is-switching');
-    window.setTimeout(() => {
-      index = (index + 1) % fontStates.length;
-      applyState(fontStates[index]);
-      window.requestAnimationFrame(() => target.classList.remove('is-switching'));
-    }, 160);
+    if (document.hidden || reducedMotion.matches) return;
+    index = (index + 1) % fontStates.length;
+    applyState(fontStates[index]);
   };
 
   const start = () => {
-    if (timer !== null) return;
-    timer = window.setInterval(switchFont, 2600);
+    if (timer !== null || reducedMotion.matches) return;
+    timer = window.setInterval(switchFont, 2400);
   };
 
   const stop = () => {
     if (timer === null) return;
     window.clearInterval(timer);
     timer = null;
+  };
+
+  const preloadFonts = async () => {
+    if (!document.fonts?.load) return;
+    await Promise.allSettled(fontStates.map((state) => document.fonts.load(state.load)));
   };
 
   document.addEventListener('visibilitychange', () => {
@@ -51,12 +61,13 @@
   reducedMotion.addEventListener?.('change', (event) => {
     if (event.matches) {
       stop();
-      target.classList.remove('is-switching');
+      index = 0;
       applyState(fontStates[0]);
     } else {
       start();
     }
   });
 
-  start();
+  applyState(fontStates[0]);
+  preloadFonts().finally(start);
 })();
