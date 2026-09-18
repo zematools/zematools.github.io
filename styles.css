@@ -44,7 +44,7 @@
 .brand-lockup .brand-mark{width:28px;height:28px;display:block;object-fit:contain;flex:0 0 auto}
 .site-footer .brand-lockup .brand-mark{width:25px;height:25px}
 
-/* v10 interaction polish */
+/* v12 interaction polish */
 .button-dark{
   transition:background-color .18s ease,color .18s ease,border-color .18s ease,transform .18s ease;
 }
@@ -58,32 +58,37 @@
   outline:3px solid var(--accent);
   outline-offset:3px;
 }
-.live-type-heading{
-  transition:font-size .18s ease,line-height .18s ease,letter-spacing .18s ease;
-}
-.live-type-heading em{
+.live-type-accent{
+  display:inline-block;
   color:#4f5f1d;
   font-style:italic;
+  white-space:nowrap;
+  transform-origin:left center;
+  transition:font-size .16s ease,letter-spacing .16s ease,font-weight .16s ease;
 }
-.live-type-instrument{
+.live-type-accent-instrument{
   font-family:var(--serif);
-  font-size:clamp(66px,8.5vw,132px);
-  line-height:.87;
-  letter-spacing:-.045em;
+  font-size:1em;
+  font-weight:400;
+  letter-spacing:inherit;
 }
-.live-type-inter{
+.live-type-accent-inter{
   font-family:var(--sans);
-  font-size:clamp(58px,7.6vw,116px);
-  line-height:.91;
-  letter-spacing:-.065em;
+  font-size:.83em;
+  font-weight:500;
+  letter-spacing:-.055em;
 }
-.live-type-mono{
+.live-type-accent-mono{
   font-family:var(--mono);
-  font-size:clamp(44px,5.8vw,88px);
-  line-height:.98;
-  letter-spacing:-.065em;
+  font-size:.70em;
+  font-weight:400;
+  letter-spacing:-.075em;
+}
+@media(max-width:560px){
+  .live-type-accent-inter{font-size:.82em}
+  .live-type-accent-mono{font-size:.68em}
 }
 @media(prefers-reduced-motion:reduce){
-  .button-dark,.live-type-heading{transition:none}
+  .button-dark,.live-type-accent{transition:none}
   .button-dark:hover{transform:none}
 }
