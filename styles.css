@@ -43,3 +43,29 @@
 .brand-lockup{display:inline-flex;align-items:center;gap:9px}
 .brand-lockup .brand-mark{width:28px;height:28px;display:block;object-fit:contain;flex:0 0 auto}
 .site-footer .brand-lockup .brand-mark{width:25px;height:25px}
+
+/* v10 interaction polish */
+.button-dark{
+  transition:background-color .18s ease,color .18s ease,border-color .18s ease,transform .18s ease;
+}
+.button-dark:hover{
+  background:var(--accent);
+  color:var(--ink);
+  border-color:var(--ink);
+  transform:translateY(-1px);
+}
+.button-dark:focus-visible{
+  outline:3px solid var(--accent);
+  outline-offset:3px;
+}
+.live-type-demo{
+  transition:opacity .16s ease;
+  will-change:opacity;
+}
+.live-type-demo.is-switching{
+  opacity:.18;
+}
+@media(prefers-reduced-motion:reduce){
+  .button-dark,.live-type-demo{transition:none}
+  .button-dark:hover{transform:none}
+}
