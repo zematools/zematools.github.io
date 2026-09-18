@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="Font Smooth Pro purchase success">
+  <title>Font Smooth Pro is ready | Zema Tools</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="success-body">
+<header class="site-header">
+  <div class="shell nav-shell">
+    <a class="brand success-brand" href="index.html">
+      <img src="zema-tools-logo.png" alt="" width="30" height="30">
+      <span>Zema Tools</span>
+    </a>
+    <nav class="nav"><a href="index.html#support">Support</a></nav>
+  </div>
+</header>
+
+<main class="success-main shell">
+  <section class="success-card" aria-live="polite">
+    <p class="eyebrow">Font Smooth Pro</p>
+    <div class="success-status" id="successStatus">Purchase complete</div>
+    <h1 class="success-title">Font Smooth Pro is ready.</h1>
+    <p class="success-lead" id="successLead">Copy your license key, then activate Pro inside Font Smooth.</p>
+
+    <div class="license-box" id="licenseBox">
+      <div class="license-label-row">
+        <span>Your license key</span>
+        <span class="license-email" id="licenseEmail"></span>
+      </div>
+      <div class="license-copy-row">
+        <code id="licenseKey">Loading…</code>
+        <button class="button button-dark copy-button" id="copyLicense" type="button">Copy license key</button>
+      </div>
+      <p class="copy-feedback" id="copyFeedback" role="status"></p>
+    </div>
+
+    <div class="activation-steps" id="activationSteps">
+      <p class="eyebrow">Activate</p>
+      <ol>
+        <li>Open <strong>Font Smooth</strong> in Firefox.</li>
+        <li>Open <strong>Advanced → Font Smooth Pro</strong>.</li>
+        <li>Choose <strong>Activate Pro</strong>, paste the key, and activate.</li>
+      </ol>
+      <p class="success-note">We also send the license key by email for safekeeping. If it is not in your inbox, check Spam.</p>
+    </div>
+
+    <div class="success-help">
+      <a class="text-link" href="index.html">Back to Font Smooth <span>↗</span></a>
+      <a class="text-link" href="https://mail.google.com/mail/?view=cm&fs=1&to=productionszema@gmail.com&su=Font%20Smooth%20Purchase%20Help" target="_blank" rel="noopener noreferrer">Need help? <span>↗</span></a>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  let licenseKey = params.get("license_key") || "";
+  let email = params.get("email") || "";
+  let status = params.get("status") || "";
+
+  try {
+    if (licenseKey) sessionStorage.setItem("fontSmoothPurchaseLicense", licenseKey);
+    if (email) sessionStorage.setItem("fontSmoothPurchaseEmail", email);
+    if (status) sessionStorage.setItem("fontSmoothPurchaseStatus", status);
+
+    if (!licenseKey) licenseKey = sessionStorage.getItem("fontSmoothPurchaseLicense") || "";
+    if (!email) email = sessionStorage.getItem("fontSmoothPurchaseEmail") || "";
+    if (!status) status = sessionStorage.getItem("fontSmoothPurchaseStatus") || "";
+  } catch (_) {}
+
+  if (window.location.search) {
+    try { history.replaceState(null, document.title, window.location.pathname); } catch (_) {}
+  }
+
+  const statusEl = document.getElementById("successStatus");
+  const titleEl = document.querySelector(".success-title");
+  const leadEl = document.getElementById("successLead");
+  const boxEl = document.getElementById("licenseBox");
+  const stepsEl = document.getElementById("activationSteps");
+  const keyEl = document.getElementById("licenseKey");
+  const emailEl = document.getElementById("licenseEmail");
+  const copyBtn = document.getElementById("copyLicense");
+  const feedbackEl = document.getElementById("copyFeedback");
+
+  const successful = !status || status === "succeeded" || status === "active";
+
+  if (!successful) {
+    statusEl.textContent = "Payment not completed";
+    titleEl.textContent = "We could not confirm this purchase.";
+    leadEl.textContent = "Return to checkout or contact Zema Tools support if you believe the payment completed.";
+    boxEl.hidden = true;
+    stepsEl.hidden = true;
+    return;
+  }
+
+  if (!licenseKey) {
+    statusEl.textContent = "Purchase complete";
+    titleEl.textContent = "Your purchase is complete.";
+    leadEl.textContent = "The license key was not included in this return link. Check the purchase email, including Spam, or contact Zema Tools support.";
+    boxEl.hidden = true;
+    stepsEl.hidden = true;
+    return;
+  }
+
+  keyEl.textContent = licenseKey;
+  if (email) emailEl.textContent = "Also sent to " + email;
+
+  async function copyKey() {
+    try {
+      await navigator.clipboard.writeText(licenseKey);
+      feedbackEl.textContent = "Copied. Paste it into Font Smooth.";
+      copyBtn.textContent = "Copied";
+      setTimeout(() => { copyBtn.textContent = "Copy license key"; }, 1800);
+    } catch (_) {
+      const range = document.createRange();
+      range.selectNodeContents(keyEl);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      try {
+        document.execCommand("copy");
+        feedbackEl.textContent = "Copied. Paste it into Font Smooth.";
+      } catch (_) {
+        feedbackEl.textContent = "Select the license key above and copy it manually.";
+      }
+      selection.removeAllRanges();
+    }
+  }
+
+  copyBtn.addEventListener("click", copyKey);
+})();
+</script>
+</body>
+</html>
