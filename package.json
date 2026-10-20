@@ -1,0 +1,11 @@
+{
+  "name": "font-smooth-website",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/contracts.test.mjs && playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "@axe-core/playwright": "4.10.2"
+  }
+}

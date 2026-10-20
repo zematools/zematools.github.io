@@ -1,69 +1,23 @@
 (() => {
-  const target = document.querySelector('[data-live-type-accent]');
-  if (!target) return;
-
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-  const fontStates = [
-    {
-      className: 'live-type-accent-instrument',
-      load: '400 96px "Instrument Serif"'
-    },
-    {
-      className: 'live-type-accent-inter',
-      load: '500 96px "Inter"'
-    },
-    {
-      className: 'live-type-accent-mono',
-      load: '400 80px "JetBrains Mono"'
-    }
-  ];
-
-  let index = 0;
-  let timer = null;
-
-  const applyState = (state) => {
-    target.classList.remove(...fontStates.map((item) => item.className));
-    target.classList.add(state.className);
-  };
-
-  const switchFont = () => {
-    if (document.hidden || reducedMotion.matches) return;
-    index = (index + 1) % fontStates.length;
-    applyState(fontStates[index]);
-  };
-
-  const start = () => {
-    if (timer !== null || reducedMotion.matches) return;
-    timer = window.setInterval(switchFont, 2500);
-  };
-
-  const stop = () => {
-    if (timer === null) return;
-    window.clearInterval(timer);
-    timer = null;
-  };
-
-  const preloadFonts = async () => {
-    if (!document.fonts?.load) return;
-    await Promise.allSettled(fontStates.map((state) => document.fonts.load(state.load)));
-  };
-
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stop();
-    else start();
+  'use strict';
+  const viewer = document.getElementById('screenshot-viewer');
+  const image = document.getElementById('viewer-image');
+  if (!viewer || !image || typeof viewer.showModal !== 'function') return;
+  let opener;
+  document.querySelectorAll('[data-zoom]').forEach(link => {
+    link.addEventListener('click', event => {
+      event.preventDefault();
+      opener = link;
+      image.src = link.href;
+      image.alt = link.querySelector('img').alt;
+      viewer.showModal();
+    });
   });
-
-  reducedMotion.addEventListener?.('change', (event) => {
-    if (event.matches) {
-      stop();
-      index = 0;
-      applyState(fontStates[0]);
-    } else {
-      start();
-    }
+  viewer.querySelector('.viewer-close').addEventListener('click', () => viewer.close());
+  viewer.addEventListener('click', event => {
+    if (event.target !== viewer) return;
+    const rect = viewer.getBoundingClientRect();
+    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) viewer.close();
   });
-
-  applyState(fontStates[0]);
-  preloadFonts().finally(start);
+  viewer.addEventListener('close', () => { image.removeAttribute('src'); opener?.focus(); });
 })();
