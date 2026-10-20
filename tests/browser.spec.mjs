@@ -6,11 +6,19 @@ const success = '/success.html?status=succeeded&payment_id=pay_test123&license_k
 test('all pages: responsive layout, accessible controls and local links', async ({ page }, testInfo) => {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
+  page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
   for (const width of [320, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     for (const path of pages) {
       await page.goto('/'+path);
       await page.evaluate(() => document.fonts.ready);
+      if (path === 'index.html') {
+        for (const image of await page.locator('[data-zoom] img').all()) {
+          await image.scrollIntoViewIfNeeded();
+          await expect.poll(() => image.evaluate(el => el.complete && el.naturalWidth > 0), { message: 'Published product screenshot loads' }).toBe(true);
+        }
+        await page.evaluate(() => scrollTo(0, 0));
+      }
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), path+' at '+width).toBe(true);
       // Leaf text must not be clipped by a fixed-size or overflow container.
       const clipped = await page.locator('h1,h2,h3,p,summary,button').evaluateAll(nodes => nodes.filter(el => {
