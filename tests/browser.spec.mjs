@@ -15,7 +15,7 @@ test('all pages: responsive layout, accessible controls and local links', async 
       if (path === 'index.html') {
         for (const image of await page.locator('[data-zoom] img').all()) {
           await image.scrollIntoViewIfNeeded();
-          await expect.poll(() => image.evaluate(el => el.complete && el.naturalWidth > 0), { message: 'Published product screenshot loads' }).toBe(true);
+          await expect.poll(() => image.evaluate(el => el.complete && el.naturalWidth > 0), { message: 'Current interface screenshot loads' }).toBe(true);
         }
         await page.evaluate(() => scrollTo(0, 0));
       }

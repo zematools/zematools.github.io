@@ -42,20 +42,28 @@ npm test
 
 Browser checks cover mobile/tablet/desktop overflow, internal links, JavaScript errors, keyboard navigation, FAQ, screenshot dialog, accessibility, copy success/failure, unconfirmed/incomplete/missing-key returns, legacy cache clearing and history clearing. Synthetic keys are test data, not real purchases.
 
-## Release verification still required
+## Release verification
 
 - Use the existing private Internal QA 100% discount in the actual live checkout. Confirm the final total is zero before submitting. Never make a charged test purchase and never commit the private code.
 - Confirm the actual return parameters, license display, backup email and activation in the existing extension. Automated synthetic-return tests do not verify Dodo delivery or real entitlement.
-- Inspect the Firefox, Edge and Opera release packages and confirm their purchase URL uses the same live product and success redirect. Those packages are outside this repository.
+- Verified in release 1.1.0.31: Firefox, Edge and Opera purchase links use this same live product, quantity 1 and success redirect. The packages remain outside this repository.
 - Review the Dodo **Zema Tools** branding and store developer/contact details against the website’s Amanuel Yohannes credit. These external settings are unchanged.
-- Review the website in each target browser. The screenshots are genuine images from the published Firefox listing; they may show an older extension version. Replace them with approved current-release screenshots when available.
+- Interface images now show the 1.1.0.31 production popup and font picker, rendered in headless Chromium with sample browser state. The Pro image uses a test entitlement fixture. These are interface previews, not evidence of native browser or live payment testing.
 
 ## Design and assets
 
-The layout follows the spacing, typography and simplicity of the Runseta reference while preserving Font Smooth's logo and purple accent. Inter is self-hosted; its SIL Open Font License is in `assets/Inter-LICENSE.txt`. Product screenshot links point to the genuine Mozilla listing images. There are no application runtime dependencies, trackers or animation libraries. Test dependencies are development-only.
+The layout follows the spacing, typography and simplicity of the Runseta reference while preserving Font Smooth's logo and purple accent. Inter is self-hosted; its SIL Open Font License is in `assets/Inter-LICENSE.txt`. Product images are self-hosted under `assets/screenshots/` and captured from the current extension UI. There are no application runtime dependencies, trackers or animation libraries. Test dependencies are development-only.
 
 ## Support and privacy
 
 [Email Amanuel Yohannes](mailto:serviceamanuel@gmail.com?subject=Font%20Smooth%20support): **serviceamanuel@gmail.com**.
 
 Typography preferences stay in browser storage. Font Smooth does not send the text you read to the developer. See [Privacy](privacy.html), [Terms](terms.html) and [Refunds](refunds.html) for the existing licensing, payment and support terms.
+
+## October 25, 2026 release cleanup
+
+- Extension support and feedback now open email to serviceamanuel@gmail.com. About names Font Smooth and Amanuel Yohannes; the extra GitHub profile row was removed.
+- All three extension builds use version 1.1.0.31; Firefox author metadata is corrected without changing the add-on ID.
+- Website images show the current interface with sample data. No personal browsing data, license keys or QA discount codes are included.
+- User reported the preceding native Edge, Opera and Firefox feature checks passed. Automated extension UI checks use mocked APIs and do not replace those native results.
+- Live payment/email delivery was not rerun in this cleanup. Existing checkout, Worker and license limits are unchanged.
