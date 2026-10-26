@@ -15,8 +15,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{o
 .skip-link:focus{top:12px}
 .site-header{border-bottom:1px solid var(--line)}
 .navigation{min-height:88px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-.brand{display:inline-flex;align-items:center;gap:10px;font-weight:650;letter-spacing:-.6px;font-size:22px;text-decoration:none;white-space:nowrap}
-.brand img{width:30px;height:30px;object-fit:contain}
+.brand{display:inline-block;font:italic 28px/1.2 ui-serif,Georgia,"Iowan Old Style","Times New Roman",serif;letter-spacing:-.8px;text-decoration:none;white-space:nowrap}
 .nav-links{display:flex;flex-wrap:wrap;gap:24px;font-size:14px}
 .nav-links a{text-decoration:none;padding:8px 0}
 .nav-links a:hover,.footer-row a:hover{color:var(--accent)}
@@ -161,7 +160,7 @@ dialog.viewer-dark .viewer-close{background:#27282c;color:#f8f6f1;border-color:#
 .faq-section{grid-template-columns:1fr;gap:26px}.support-panel{grid-template-columns:1fr;padding:30px;gap:28px}.support-contact{align-items:flex-start}.footer-row{align-items:flex-start}
 }
 @media(max-width:540px){
-.wrap{width:calc(100% - 32px)}.navigation{align-items:flex-start}.brand{font-size:20px}.nav-links{width:100%;justify-content:space-between;gap:12px}
+.wrap{width:calc(100% - 32px)}.navigation{align-items:flex-start}.brand{font-size:26px}.nav-links{width:100%;justify-content:space-between;gap:12px}
 h1{font-size:clamp(46px,12vw,64px);letter-spacing:-.05em}.hero-divider{margin-top:38px;font-size:10px;align-items:center}
 .actions .button{flex:1 1 125px}.feature-grid,.plans{grid-template-columns:1fr}.feature-grid{gap:26px}
 .plan{padding:26px}.section-heading{margin-bottom:30px}.support-panel{padding:26px}.support-panel h2{font-size:30px}.footer-row nav{gap:14px}
