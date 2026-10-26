@@ -10,12 +10,12 @@
   let copyTimer;
   let generation = 0;
   const messages = {
-    key: ['Checkout returned', 'Your key is ready to copy.', 'Checkout reports a completed purchase and returned the key below. Copy it, then activate Font Smooth Pro.'],
-    'missing-key': ['Check your email', 'Let’s find your license.', 'Checkout reports a completed purchase, but this return link did not include a usable license key. Check your checkout email, including Spam/Junk.'],
-    pending: ['Payment pending', 'Your payment may still be processing.', 'This return link does not confirm a completed payment. Check your Dodo receipt or email before starting another purchase.'],
-    incomplete: ['Checkout incomplete', 'This checkout did not return a completed payment.', 'If you believe your payment went through, check your receipt and contact support before trying again.'],
-    unconfirmed: ['Purchase not confirmed', 'We can’t confirm this purchase here.', 'This link is missing or contains inconsistent checkout details. Use your Dodo receipt and license email, or contact support.'],
-    missing: ['License help', 'Find your Font Smooth Pro license.', 'No current purchase details are available on this page. If you already purchased Pro, check your checkout email, including Spam/Junk.']
+    key: ['Activate Pro', 'Your key is ready to copy.', 'Copy the license key below, then open Font Smooth to activate Pro. Keep the license email for future installations.'],
+    'missing-key': ['Check your email', 'Your key isn’t shown here.', 'Check the email address you used at checkout for your license. If you have a purchase receipt but no key, follow the steps below. You do not need to buy again.'],
+    pending: ['Payment pending', 'Your payment may still be processing.', 'Check your Dodo receipt or email before starting another purchase. If you have a receipt but no license, contact support.'],
+    incomplete: ['Checkout incomplete', 'Checkout was not completed.', 'If you believe your payment went through, check your receipt and contact support before trying again.'],
+    unconfirmed: ['Purchase not confirmed', 'We can’t confirm this purchase here.', 'Check your Dodo receipt and license email, or contact support using the steps below.'],
+    missing: ['License help', 'Find your Font Smooth Pro license.', 'Already bought Pro? Use the email address you entered at checkout to find your license. You do not need to buy again.']
   };
   function render() {
     const [status, title, lead] = messages[model.state];
@@ -27,6 +27,9 @@
     document.getElementById('copyLicense').disabled = model.state !== 'key';
     document.getElementById('copyLicense').textContent = 'Copy key';
     document.getElementById('copyFeedback').textContent = '';
+    const steps = document.getElementById('activationSteps');
+    if (model.state === 'key') document.getElementById('emailRecovery').before(steps);
+    else document.querySelector('.recovery-contact').after(steps);
     // Email recovery and activation instructions remain visible in every state.
   }
   function forget() {

@@ -3,6 +3,23 @@ import AxeBuilder from '@axe-core/playwright';
 const pages = ['index.html','success.html','privacy.html','terms.html','refunds.html','rate.html'];
 const key = 'TEST-NOT-A-REAL-LICENSE-12345678';
 const success = '/success.html?status=succeeded&payment_id=pay_test123&license_key='+key+'&email=test%40example.invalid';
+test('buyers can find license recovery before checkout and follow exact activation steps', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('.plan-pro')).toContainText('Use an email address you can access');
+  await expect(page.locator('.purchase-guide')).toContainText('Settings → Activate a license');
+  await expect(page.locator('.purchase-guide')).toContainText('Spam/Junk');
+  await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Find my license' }).click();
+  await expect(page.locator('#successTitle')).toHaveText('Find your Font Smooth Pro license.');
+  await expect(page.locator('.recovery-contact')).toContainText('Don’t buy again');
+  await expect(page.locator('.recovery-contact')).toContainText('order reference from your receipt');
+  await expect(page.locator('#emailRecovery')).toContainText('not spam');
+  await expect(page.locator('#activationSteps')).toContainText('Settings');
+  await expect(page.locator('#activationSteps')).toContainText('Activate a license');
+  await expect(page.locator('#licenseBox')).not.toBeVisible();
+  await page.goto('/#pricing');
+  await page.locator('.purchase-guide').getByRole('link', { name: 'Find my license' }).click();
+  await expect(page).toHaveURL(/\/success.html$/);
+});
 test('all pages: responsive layout, accessible controls and local links', async ({ page }, testInfo) => {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
@@ -80,6 +97,9 @@ test('current key, clipboard feedback, URL scrubbing and no stale cache', async 
   expect(await page.evaluate(() => window.copiedValue)).toBe(key);
   await expect(page.locator('#emailRecovery')).toBeVisible();
   await expect(page.locator('#activationSteps')).toBeVisible();
+  expect(await page.locator('#activationSteps').evaluate(el =>
+    Boolean(el.compareDocumentPosition(document.getElementById('emailRecovery')) & Node.DOCUMENT_POSITION_FOLLOWING)
+  )).toBe(true);
   await page.screenshot({path:testInfo.outputPath('license-return.png'),fullPage:true});
   // Real navigation/reload must not resurrect a prior purchase from storage.
   await page.reload();
