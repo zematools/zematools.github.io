@@ -47,6 +47,14 @@ p{color:var(--muted);margin:0 0 18px}
 .screenshot{display:block;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--white);box-shadow:0 16px 40px #2723440c}
 .screenshot img{display:block;width:100%;height:auto;object-fit:contain;background:white}
 .screenshot-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;min-width:0}
+/* The original captures include 18px side margins and a 42px bottom shadow.
+   Clip only that surrounding canvas; preserve the complete 480px-wide UI. */
+.capture-crop{position:relative;box-sizing:content-box;aspect-ratio:480 / var(--capture-height);overflow:hidden}
+.capture-crop img{position:absolute;top:0;left:-3.75%;width:107.5%;max-width:none;height:auto;max-height:none}
+.screenshot-pair .product-figure{display:flex;flex-direction:column;align-items:center}
+.screenshot-pair .screenshot{width:100%;flex:none}
+.screenshot-pair .product-figure:nth-child(2) .screenshot{width:calc(100% * 832 / 886)}
+.screenshot-pair figcaption{width:100%}
 .capture-note{grid-column:1/-1;font-size:12px;margin:0}
 .portrait-figure{width:min(100%,320px);justify-self:center}
 .screenshot:hover{border-color:#aaa2d0}
@@ -110,6 +118,10 @@ summary{cursor:pointer;font-weight:550;padding:4px 0}
 dialog{border:1px solid var(--line);border-radius:var(--radius);padding:58px 18px 18px;max-width:min(95vw,1100px);max-height:95vh;background:var(--paper)}
 dialog::backdrop{background:#1d1a2ecb}
 dialog img{max-height:78vh;object-fit:contain}
+#viewer-frame.capture-crop{width:min(78vw,calc(78vh * 480 / var(--capture-height)))}
+#viewer-frame.capture-crop img{max-height:none}
+dialog.viewer-dark{background:#1c1d20;border-color:#45434d}
+dialog.viewer-dark .viewer-close{background:#27282c;color:#f8f6f1;border-color:#555}
 .viewer-close{position:absolute;right:16px;top:12px;background:white;border:1px solid var(--line);border-radius:6px;padding:5px 12px;min-height:34px}
 .legal-main{max-width:780px;padding:56px 0 80px}
 .legal-back{font-size:14px;color:var(--accent)}
@@ -158,4 +170,5 @@ h1{font-size:clamp(46px,12vw,64px);letter-spacing:-.05em}.hero-divider{margin-to
 }
 @media(max-width:800px){.saved-setups article{grid-template-columns:1fr;gap:24px}.saved-setups{gap:48px}.pro-band{padding:48px 0}.purchase-steps{grid-template-columns:1fr;gap:20px}}
 @media(max-width:540px){.screenshot-pair{grid-template-columns:1fr}.screenshot-pair .product-figure{width:min(100%,320px)}.purchase-guide{padding:24px}.nav-links{justify-content:flex-start;column-gap:18px}}
+@media(max-width:540px){.screenshot-pair .product-figure:nth-child(2) .screenshot{width:100%}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
