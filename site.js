@@ -2,6 +2,7 @@
   'use strict';
   const viewer = document.getElementById('screenshot-viewer');
   const image = document.getElementById('viewer-image');
+  const frame = document.getElementById('viewer-frame');
   if (!viewer || !image || typeof viewer.showModal !== 'function') return;
   let opener;
   document.querySelectorAll('[data-zoom]').forEach(link => {
@@ -10,6 +11,9 @@
       opener = link;
       image.src = link.href;
       image.alt = link.querySelector('img').alt;
+      frame.classList.toggle('capture-crop', Boolean(link.dataset.captureHeight));
+      frame.style.setProperty('--capture-height', link.dataset.captureHeight || '1');
+      viewer.classList.toggle('viewer-dark', Boolean(link.closest('.pro-band')));
       viewer.showModal();
     });
   });
