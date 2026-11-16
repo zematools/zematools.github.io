@@ -171,3 +171,6 @@ h1{font-size:clamp(46px,12vw,64px);letter-spacing:-.05em}.hero-divider{margin-to
 @media(max-width:540px){.screenshot-pair{grid-template-columns:1fr}.screenshot-pair .product-figure{width:min(100%,320px)}.purchase-guide{padding:24px}.nav-links{justify-content:flex-start;column-gap:18px}}
 @media(max-width:540px){.screenshot-pair .product-figure:nth-child(2) .screenshot{width:100%}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+.runseta-section { border-top: 1px solid var(--line, #e3e3df); }
+.runseta-preview { display: block; width: 100%; height: auto; border-radius: 8px; }
