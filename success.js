@@ -1,5 +1,6 @@
 (() => {
   'use strict';
+  const product = document.currentScript?.dataset.product || 'Font Smooth';
   // Capture only this navigation's data. Remove the legacy cross-purchase cache.
   let model = FontSmoothCheckout.parseCheckoutReturn(location.search);
   for (const name of ['fontSmoothPurchaseLicense', 'fontSmoothPurchaseEmail', 'fontSmoothPurchaseStatus']) {
@@ -10,12 +11,12 @@
   let copyTimer;
   let generation = 0;
   const messages = {
-    key: ['Activate Pro', 'Your key is ready to copy.', 'Copy the license key below, then open Font Smooth to activate Pro. Keep the license email for future installations.'],
+    key: ['Activate Pro', 'Your key is ready to copy.', `Copy the license key below, then open ${product} to activate Pro. Keep the license email for future installations.`],
     'missing-key': ['Check your email', 'Your key isn’t shown here.', 'Check the email address you used at checkout for your license. If you have a purchase receipt but no key, follow the steps below. You do not need to buy again.'],
     pending: ['Payment pending', 'Your payment may still be processing.', 'Check your Dodo receipt or email before starting another purchase. If you have a receipt but no license, contact support.'],
     incomplete: ['Checkout incomplete', 'Checkout was not completed.', 'If you believe your payment went through, check your receipt and contact support before trying again.'],
     unconfirmed: ['Purchase not confirmed', 'We can’t confirm this purchase here.', 'Check your Dodo receipt and license email, or contact support using the steps below.'],
-    missing: ['License help', 'Find your Font Smooth Pro license.', 'Already bought Pro? Use the email address you entered at checkout to find your license. You do not need to buy again.']
+    missing: ['License help', `Find your ${product} Pro license.`, 'Already bought Pro? Use the email address you entered at checkout to find your license. You do not need to buy again.']
   };
   function render() {
     const [status, title, lead] = messages[model.state];
@@ -60,7 +61,7 @@
       }
       if (current !== generation) return;
       if (copied) {
-        feedback.textContent = 'Copied. Paste it into Font Smooth to activate Pro.';
+        feedback.textContent = `Copied. Paste it into ${product} to activate Pro.`;
         button.textContent = 'Copied';
         clearTimeout(copyTimer);
         copyTimer = setTimeout(() => { button.textContent = 'Copy key'; }, 2000);
