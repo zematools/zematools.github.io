@@ -67,3 +67,9 @@ details p{margin-top:.7rem}
 footer{border-top:1px solid var(--line)}
 @media(max-width:850px){.workflow-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.wrap{width:calc(100% - 2.25rem)}.nav{flex-wrap:wrap}.nav nav{flex-wrap:wrap}.section-head,.editions,.faq{grid-template-columns:1fr;gap:1.4rem}.hero-frame{border-radius:.35rem}.workflow-grid{grid-template-columns:1fr;gap:2.25rem}.actions{margin-bottom:2rem}.section-head br{display:none}.hero h1{font-size:clamp(3.15rem,11vw,4.2rem)}}
+
+.help-page{max-width:45rem;padding-block:clamp(2.5rem,7vw,5rem)}
+.help-page h1{font:500 clamp(2.6rem,6vw,4.4rem)/1.05 var(--serif);letter-spacing:-.04em}
+.help-page h2{font:500 clamp(1.65rem,3vw,2.15rem)/1.15 var(--serif);margin-top:2.5rem}
+.help-page p{margin-top:1rem}
+.help-page a{color:var(--accent);overflow-wrap:anywhere}
