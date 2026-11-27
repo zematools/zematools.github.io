@@ -6,6 +6,14 @@
 <meta name="theme-color" content="#fafafc">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Font Smooth, Runseta &amp; AssortDock | Zema Tools</title>
+<script>
+  // Older shared links used a section of this page for Runseta.
+  function openLegacyRunsetaLink() {
+    if (location.hash === '#runseta') location.replace('/runseta/' + location.search);
+  }
+  openLegacyRunsetaLink();
+  window.addEventListener('hashchange', openLegacyRunsetaLink);
+</script>
 <link rel="icon" href="zema-tools-logo.png">
 <link rel="preload" href="assets/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
@@ -14,11 +22,11 @@
 <body><a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><nav class="wrap navigation" aria-label="Main navigation">
 <a class="brand" href="index.html">Zema Tools</a>
-<div class="nav-links"><a href="assortdock/">AssortDock</a><a href="#runseta">Runseta</a><a href="index.html#features">Features</a><a href="index.html#pricing">Free &amp; Pro</a><a href="success.html">Find my license</a><a href="index.html#support">Support</a></div>
+<div class="nav-links"><a href="assortdock/">AssortDock</a><a href="/runseta/">Runseta</a><a href="index.html#features">Features</a><a href="index.html#pricing">Free &amp; Pro</a><a href="success.html">Find my license</a><a href="index.html#support">Support</a></div>
 </nav></header>
 <main id="main">
 <section class="hero wrap" aria-labelledby="hero-title">
-<p class="eyebrow">A font changer for your browser</p>
+<p class="eyebrow">Font Smooth for your browser</p>
 <h1 id="hero-title">Your web.<br><span>Your type.</span></h1>
 <p class="intro">Change website fonts, text size and spacing. Use the same settings everywhere, or save different settings for each website.</p>
 <div class="actions" id="install"><a class="button button-secondary" href="https://addons.mozilla.org/firefox/addon/font-smooth/">Get for Firefox<span aria-hidden="true">↗</span></a>
