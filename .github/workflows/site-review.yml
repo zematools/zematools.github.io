@@ -22,7 +22,7 @@ jobs:
         run: |
           mkdir -p review/website
           cp *.html *.css site.js success.js checkout-return.js zema-tools-logo.png review/website/
-          cp -R assets review/website/
+          cp -R assets assortdock review/website/
           cp README.md review/
       - uses: actions/upload-artifact@v4
         if: always()
